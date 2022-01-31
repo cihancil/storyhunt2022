@@ -10,8 +10,13 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "deprecated-react-native-listview": "0.0.5",
+    "lodash": "4.17.11",
+    "mobx": "4.8.0",
+    "mobx-react": "5.4.3",
     "react": "17.0.2",
-    "react-native": "0.67.1"
+    "react-native": "0.67.1",
+    "react-navigation": "3.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
