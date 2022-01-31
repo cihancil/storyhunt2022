@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "657332332627",
+    "project_id": "storyhunt-2c683",
+    "storage_bucket": "storyhunt-2c683.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657332332627:android:b944fcf05cb68f08257ea6",
+        "android_client_info": {
+          "package_name": "com.apphunt.storyhunt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657332332627-9218annaq4p69mb599ccas5e1cbrd7dm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjHYAPBOf0480K0IA6WNWjqgGAhb1mor8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657332332627-9218annaq4p69mb599ccas5e1cbrd7dm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
