@@ -24,7 +24,14 @@
     "react-native-fade-in-view": "1.0.5",
     "react-native-fs": "2.13.3",
     "react-native-gesture-handler": "1.4.1",
+    "react-native-image-zoom-viewer": "2.2.26",
+    "react-native-iphone-x-helper": "1.2.0",
+    "react-native-linear-gradient": "2.5.6",
+    "react-native-modal": "7.0.2",
+    "react-native-scrollable-tab-view": "0.10.0",
     "react-native-snap-carousel": "3.8.1",
+    "react-native-tiny-toast": "1.0.3",
+    "react-native-vector-icons": "6.1.0",
     "react-navigation": "3.0.9"
   },
   "devDependencies": {
