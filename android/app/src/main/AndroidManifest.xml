@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.storyhunt">
+  package="com.apphunt.storyhunt">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

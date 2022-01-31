@@ -1,4 +1,4 @@
-package com.storyhunt;
+package com.apphunt.storyhunt;
 
 import com.facebook.react.ReactActivity;
 
