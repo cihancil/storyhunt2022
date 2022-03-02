@@ -26,37 +26,37 @@ export default class InstagramLoginScreen extends React.Component {
     if (!LoginState.isLoggedIn && (Platform.OS === "ios")) {
       CookieManager.clearAll()
     }
-    if (this.keyboardDidShowListener) {
-      this.keyboardDidShowListener.remove()
-    }
-    if (this.keyboardDidHideListener) {
-      this.keyboardDidHideListener.remove()
-    }
-    setTimeout(() => {
-      if (!LoginState.isLoggedIn) {
-        fire.trackEvent("login_cancel")
-      }
-    }, 500);
+    // if (this.keyboardDidShowListener) {
+    //   this.keyboardDidShowListener.remove()
+    // }
+    // if (this.keyboardDidHideListener) {
+    //   this.keyboardDidHideListener.remove()
+    // }
+    // setTimeout(() => {
+    //   if (!LoginState.isLoggedIn) {
+    //     fire.trackEvent("login_cancel")
+    //   }
+    // }, 500);
   }
   componentDidMount() {
-    if (Platform.OS === "android") {
-      this.keyboardDidShowListener = Keyboard.addListener(
-        'keyboardDidShow',
-        this._keyboardDidShow,
-      )
-      this.keyboardDidHideListener = Keyboard.addListener(
-        'keyboardDidHide',
-        this._keyboardDidHide,
-      )
-    }
-    fire.trackEvent("login_form")
+    // if (Platform.OS === "android") {
+    //   this.keyboardDidShowListener = Keyboard.addListener(
+    //     'keyboardDidShow',
+    //     this._keyboardDidShow,
+    //   )
+    //   this.keyboardDidHideListener = Keyboard.addListener(
+    //     'keyboardDidHide',
+    //     this._keyboardDidHide,
+    //   )
+    // }
+    // fire.trackEvent("login_form")
   }
   _keyboardDidShow = () => {
-    this.setState({ keyboard: true })
+    // this.setState({ keyboard: true })
   }
 
   _keyboardDidHide = () => {
-    this.setState({ keyboard: false })
+    // this.setState({ keyboard: false })
   }
 
   state = {
