@@ -131,7 +131,7 @@ export default class HomeScreen extends React.Component {
 
           }}
         >
-          <IconMaterialCommunityIcons color="black" name="logout" size={18} />
+          <IconMaterialCommunityIcons color="white" name="logout" size={18} />
         </TouchableOpacity>
       )
     } else {
