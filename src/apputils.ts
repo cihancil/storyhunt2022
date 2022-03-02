@@ -1,24 +1,24 @@
 import { PermissionsAndroid, Platform, Dimensions } from 'react-native'
 import CameraRoll from "@react-native-community/cameraroll"
-import RNFetchBlob from 'rn-fetch-blob'
+// import RNFetchBlob from 'rn-fetch-blob'
 // import faker from "faker"
 import * as Config from './Config'
 import { IImageCandidate } from './interfaces'
 
 export const downloadVideo = async (videoUrl: string) => {
   const doDownload = async (videoUrl: string) => {
-    try {
-      const res = await RNFetchBlob.config({
-        fileCache: true,
-        appendExt: 'mp4'
-      }).fetch('GET', videoUrl)
-      const fileName = res.path()
-      await CameraRoll.saveToCameraRoll(fileName)
-      return true
-    } catch (error) {
-      console.warn(error)
-      return false
-    }
+    // try {
+    //   const res = await RNFetchBlob.config({
+    //     fileCache: true,
+    //     appendExt: 'mp4'
+    //   }).fetch('GET', videoUrl)
+    //   const fileName = res.path()
+    //   await CameraRoll.saveToCameraRoll(fileName)
+    //   return true
+    // } catch (error) {
+    //   console.warn(error)
+    //   return false
+    // }
   }
 
   if (Platform.OS === "android") {
@@ -62,13 +62,13 @@ export const downloadImage = async (imageUrl) => {
 
   if (Platform.OS === "android") {
     const downloadLocal = async () => {
-      const res = await RNFetchBlob.config({
-        fileCache: true,
-        appendExt: 'png',
-      }).fetch('GET', imageUrl)
-      const fileName = 'file://' + res.path()
-      // console.warn(fileName)
-      return await doDownload(fileName)
+      // const res = await RNFetchBlob.config({
+      //   fileCache: true,
+      //   appendExt: 'png',
+      // }).fetch('GET', imageUrl)
+      // const fileName = 'file://' + res.path()
+      // // console.warn(fileName)
+      // return await doDownload(fileName)
     }
     const writeExternalStoragePermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE)
     if (!writeExternalStoragePermission) {
