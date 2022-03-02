@@ -16,12 +16,14 @@ export const downloadVideo = async (videoUrl: string) => {
       await CameraRoll.saveToCameraRoll(fileName)
       return true
     } catch (error) {
+      console.warn(error)
       return false
     }
   }
 
   if (Platform.OS === "android") {
     const writeExternalStoragePermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE)
+    console.log('writeExternalStoragePermission', writeExternalStoragePermission);
     if (!writeExternalStoragePermission) {
       const grantedWrite = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,

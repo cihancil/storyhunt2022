@@ -173,6 +173,7 @@ export default class StoriesScreen extends React.Component {
   }
 
   renderDownload = () => {
+    return null
     // try {
     //   const storyRef = this.storiesRefs["storyRef" + this.storiesContainerIndex]
     //   const downloadable = storyRef.videoUrl || storyRef.downloadUrl
