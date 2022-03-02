@@ -10,12 +10,15 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconIonIcons from 'react-native-vector-icons/Ionicons'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Toast from 'react-native-tiny-toast'
+import AppLovinMAX from "react-native-applovin-max"
 
 import * as Config from './Config'
 import StoryView from './StoryView'
 import MainState from './MainState'
 import * as fire from './fire'
 import * as utils from './apputils'
+
+const INTERSTITIAL_AD_UNIT_ID = 'd0e1641e1ed9d585'
 
 export default class StoriesScreen extends React.Component {
   constructor(props) {
@@ -59,21 +62,19 @@ export default class StoriesScreen extends React.Component {
 
   componentDidMount = async () => {
     fire.trackEvent("story_view")
+    AppLovinMAX.loadInterstitial(INTERSTITIAL_AD_UNIT_ID)
+    AppLovinMAX.addEventListener('OnInterstitialLoadedEvent', () => {
+      // Interstitial ad is ready to be shown. AppLovinMAX.isInterstitialReady(INTERSTITIAL_AD_UNIT_ID) will now return 'true'
+      // Reset retry attempt
+      this.setState({ retryAttempt: 0 })
+    })
   }
 
   componentWillUnmount = () => {
     fire.trackEvent("story_close")
-    if (this && this._advert && this._advert.isLoaded()) {
-      MainState.setAdIsComing(true)
-      this._advert.on('onAdClosed', () => {
-        MainState.setAdIsComing(false)
-      })
-      this._advert.on('onAdLeftApplication', () => {
-        MainState.setAdIsComing(false)
-      })
-      setTimeout(() => {
-        this._advert.show()
-      }, 10)
+
+    if (this && AppLovinMAX.isInterstitialReady(INTERSTITIAL_AD_UNIT_ID)) {
+      AppLovinMAX.showInterstitial(INTERSTITIAL_AD_UNIT_ID);
     }
   }
 
@@ -91,24 +92,24 @@ export default class StoriesScreen extends React.Component {
     }
   }
 
-  handleDownload = async () => {
-    const videoUrl = this.storiesRefs["storyRef" + this.storiesContainerIndex].videoUrl
-    const downloadUrl = this.storiesRefs["storyRef" + this.storiesContainerIndex].downloadUrl
-    if (videoUrl || downloadUrl) {
-      this.setState({ downloading: true }, async () => {
-        let downloadStatus
-        if (videoUrl) {
-          downloadStatus = await utils.downloadVideo(videoUrl)
-        } else {
-          downloadStatus = await utils.downloadImage(downloadUrl)
-        }
-        this.setState({ downloading: false })
-        if (downloadStatus) {
-          Toast.showSuccess('Story downloaded')
-        }
-      })
-    }
-  }
+  // handleDownload = async () => {
+  //   const videoUrl = this.storiesRefs["storyRef" + this.storiesContainerIndex].videoUrl
+  //   const downloadUrl = this.storiesRefs["storyRef" + this.storiesContainerIndex].downloadUrl
+  //   if (videoUrl || downloadUrl) {
+  //     this.setState({ downloading: true }, async () => {
+  //       let downloadStatus
+  //       if (videoUrl) {
+  //         downloadStatus = await utils.downloadVideo(videoUrl)
+  //       } else {
+  //         downloadStatus = await utils.downloadImage(downloadUrl)
+  //       }
+  //       this.setState({ downloading: false })
+  //       if (downloadStatus) {
+  //         Toast.showSuccess('Story downloaded')
+  //       }
+  //     })
+  //   }
+  // }
 
   render() {
     const { storiesContainerIndex } = this
