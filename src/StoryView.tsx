@@ -121,9 +121,10 @@ export default class StoryView extends React.Component {
           flex: 1,
           backgroundColor: 'black',
           justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <ActivityIndicator style={{ flex: 1 }} animating={loading} color='#EEE' />
+        <ActivityIndicator style={{ flex: 1, marginTop: 300 }} animating={loading} color='#EEE' />
         {this.renderStoryImage()}
         {this.renderStoryVideo()}
         {this.renderShadow()}
@@ -166,7 +167,8 @@ export default class StoryView extends React.Component {
             style={{
               width: 96,
               height: 96,
-              marginVertical: 10
+              marginVertical: 10,
+              marginTop: 300,
             }}
             source={require('../assets/private.png')}
           />
@@ -192,7 +194,8 @@ export default class StoryView extends React.Component {
             style={{
               width: 96,
               height: 96,
-              marginVertical: 16
+              marginVertical: 16,
+              marginTop: 300,
             }}
             source={require('../assets/empty.png')}
           />
@@ -298,20 +301,21 @@ export default class StoryView extends React.Component {
             height: 32,
             margin: 8,
             borderRadius: 16,
-           
+
           }}
           source={{ uri: Utils.getAvatar(this.user.profile_pic_url) }}
         />
         <View
-        style={{
-          flexDirection: 'column',
-          display: 'flex',
-        }}
+          style={{
+            flexDirection: 'column',
+            display: 'flex',
+          }}
         >
-        <Text style={{ fontFamily: Config.fontName, color: 'white' }}>{Utils.getUsername(this.user.username)}</Text>
-        {relativeTime && <Text style={{ 
-          fontSize: 12,
-          fontFamily: Config.fontName, color: 'white' }}>{relativeTime}</Text>}
+          <Text style={{ fontFamily: Config.fontName, color: 'white' }}>{Utils.getUsername(this.user.username)}</Text>
+          {relativeTime && <Text style={{
+            fontSize: 12,
+            fontFamily: Config.fontName, color: 'white'
+          }}>{relativeTime}</Text>}
         </View>
       </View>
     )
