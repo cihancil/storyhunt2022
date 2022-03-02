@@ -11,6 +11,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { observer } from 'mobx-react/native'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import AppLovinMAX from "react-native-applovin-max"
 const Tab = createMaterialTopTabNavigator();
 
 import StalkList from './home/StalkList'
@@ -26,6 +27,12 @@ import * as utils from './apputils'
 export default class HomeScreen extends React.Component {
   componentDidMount = async () => {
     // await InAppState.initialize()
+
+    AppLovinMAX.initialize("abktifn9b07X9FMr0dQXtwoD5tPgkQixIv05nwrpabFcv2NBA9_zb9dlognqbI7LNbsq5CZNNPNKNelqfZ7Asl", (configuration) => {
+      console.log('SDK is initialized, start loading ads')
+      AppLovinMAX.createBanner('0622acd42c23e07f', AppLovinMAX.AdViewPosition.BOTTOM_CENTER)
+      AppLovinMAX.showBanner('0622acd42c23e07f')
+    })
   }
 
   componentWillUnmount() {

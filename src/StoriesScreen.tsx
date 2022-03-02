@@ -26,26 +26,26 @@ export default class StoriesScreen extends React.Component {
     this.users = []
     this.usersRaw.forEach((raw, index) => {
       if (index % Config.storiesBetweenAdGap === 1) {
-        if (Config.adsEnabled()) {
-          this.users.push({
-            type: 'ad',
-            pk: `ad${index}`,
-          })
-        }
+        // if (Config.adsEnabled()) {
+        //   this.users.push({
+        //     type: 'ad',
+        //     pk: `ad${index}`,
+        //   })
+        // }
       }
       this.users.push(raw)
     })
     const initialIndexRaw = params.initialIndex
     let howManyAds = 0
-    if (Config.adsEnabled()) {
-      if (initialIndexRaw > 0) {
-        if (initialIndexRaw == 1) {
-          howManyAds = 1
-        } else {
-          howManyAds = Math.floor((initialIndexRaw - 1) / (Config.storiesBetweenAdGap)) + 1
-        }
-      }
-    }
+    // if (Config.adsEnabled()) {
+    //   if (initialIndexRaw > 0) {
+    //     if (initialIndexRaw == 1) {
+    //       howManyAds = 1
+    //     } else {
+    //       howManyAds = Math.floor((initialIndexRaw - 1) / (Config.storiesBetweenAdGap)) + 1
+    //     }
+    //   }
+    // }
     this.initialIndex = initialIndexRaw + howManyAds
     this.storiesContainerIndex = this.initialIndex || 0
     MainState.activeStoryTab = this.initialIndex
@@ -59,8 +59,6 @@ export default class StoriesScreen extends React.Component {
 
   componentDidMount = async () => {
     fire.trackEvent("story_view")
-    if (Config.adsEnabled()) {
-    }
   }
 
   componentWillUnmount = () => {
