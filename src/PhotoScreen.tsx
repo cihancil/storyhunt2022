@@ -25,18 +25,6 @@ export default class PhotoScreen extends Component<Props, {
     this.init()
   }
   componentWillUnmount() {
-    if (this && this._advert && this._advert.isLoaded()) {
-      MainState.setAdIsComing(true)
-      this._advert.on('onAdClosed', () => {
-        MainState.setAdIsComing(false)
-      })
-      this._advert.on('onAdLeftApplication', () => {
-        MainState.setAdIsComing(false)
-      })
-      setTimeout(() => {
-        this._advert.show()
-      }, 10)
-    }
   }
   init = async () => {
     try {
