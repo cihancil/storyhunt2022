@@ -40,7 +40,7 @@ export default class PhotoScreen extends Component<Props, {
   }
   init = async () => {
     try {
-      const userBasic: IUser = this.props.navigation.getParam('user', null)
+      const userBasic: IUser = this.props.route?.params?.user
       const user: IUserDetailed = await Api.getUserDetail(userBasic.pk)
       // console.log('user:', user)
       let image
@@ -59,7 +59,6 @@ export default class PhotoScreen extends Component<Props, {
   }
   render() {
     const { image } = this.state
-    const userBasic: IUser = this.props.navigation.getParam('user', null)
     return (
       <View
         style={styles.container}>

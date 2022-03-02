@@ -1,5 +1,6 @@
-import { computed, observable, action, reaction } from 'mobx'
-import { AsyncStorage } from 'react-native'
+import { computed, observable, action } from 'mobx'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { IUser, IUserDetailed } from './interfaces'
 import Api from './Api'
 

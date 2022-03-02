@@ -26,16 +26,16 @@ import { IUser } from './interfaces'
 export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props)
-    const initialValue = this.props.navigation.state.params
+    const params = props.route.params
     this.state = {
-      searchKey: initialValue || '',
+      searchKey: params?.code || '',
       searchResults: [],
       searching: false,
       isModalVisible: false,
       selectedUser: null,
     }
   }
-  searchApi = async (text) => {
+  searchApi = async (text: string) => {
     this.setState({ searching: true })
     let data
     let users

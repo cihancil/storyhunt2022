@@ -1,9 +1,8 @@
 import { computed, observable, action, reaction } from 'mobx'
-import { AsyncStorage, AppState } from 'react-native'
+import { AppState } from 'react-native'
 import CookieManager from 'react-native-cookies';
 import remoteConfig from '@react-native-firebase/remote-config';
-
-import * as fire from './fire'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 if (__DEV__) {
   // remoteConfig().enableDeveloperMode()
@@ -149,7 +148,6 @@ class LoginState {
     await this.removeCookies()
     // return
     this._tray = []
-    fire.trackEvent("login_logout")
     // console.log('CookieManager.clearAll from webkit-view =>', res);
   }
 
@@ -181,13 +179,6 @@ class LoginState {
           const followedStoriesJson = await followedStoriesResponse.json()
           // console.log('followedStoriesJson', followedStoriesJson)
           this._tray = followedStoriesJson.tray
-          fire.trackEvent("tray_success", {
-            count: this._tray.length,
-            followedStoriesJsonString: JSON.stringify(followedStoriesJson),
-            trayString: JSON.stringify(this._tray),
-            cookie: this.cookieRow,
-          })
-          // firebase.crashlytics().log(JSON.stringify(this._tray))
           this._trayFetching = false
 
         }

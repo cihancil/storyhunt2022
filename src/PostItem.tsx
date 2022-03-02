@@ -3,13 +3,14 @@ import {
   Text, View, TouchableOpacity,
   StyleSheet, Image, Dimensions,
   ScrollView,
-  Platform, ViewPagerAndroid,
+  Platform,
 } from 'react-native'
 // @ts-ignore
 import FadeInView from 'react-native-fade-in-view'
 import * as Config from './Config'
 import { Pagination } from 'react-native-snap-carousel'
 import * as Utils from './apputils'
+import PagerView from 'react-native-pager-view';
 
 import { IPost, IImageCandidate } from './interfaces'
 
@@ -149,7 +150,7 @@ export default class PostItem extends Component<Props, State> {
         </ScrollView>
       ),
       android: (
-        <ViewPagerAndroid
+        <PagerView
           style={{
             height: androidHeight,
             width: Dimensions.get('window').width,
@@ -158,7 +159,7 @@ export default class PostItem extends Component<Props, State> {
           onPageSelected={onPageSelect}
           initialPage={0}>
           {candidates.map(this.renderImage)}
-        </ViewPagerAndroid >
+        </PagerView >
       )
     })
 

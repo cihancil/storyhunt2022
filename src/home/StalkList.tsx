@@ -11,12 +11,6 @@ import {
 import { observer } from 'mobx-react/native'
 import Modal from "react-native-modal"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
-import {
-  NavigationParams,
-  NavigationScreenProp,
-  NavigationState,
-} from 'react-navigation'
 
 import MainState from '../MainState'
 import LoginState from '../LoginState'
@@ -28,16 +22,16 @@ import { Input, Button } from 'react-native-elements';
 
 @observer
 export default class StalkList extends React.Component<{
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+  navigation: any
 }, {
   selectedUser: IUser | null,
   isModalVisible: Boolean,
+  previousCode: string
 }> {
-  componentDidMount = () => {
-  }
   state = {
     isModalVisible: false,
     selectedUser: null,
+    previousCode: '',
   }
   updatedAvatarPks: string[] = []
   render() {
@@ -57,23 +51,9 @@ export default class StalkList extends React.Component<{
             MainState.initialized &&
             <TouchableOpacity
               onPress={() => {
-                fire.trackEvent((MainState.users && MainState.users.length > 0) ? "search_button_press" : "search_button_press_empty")
-                this.props.navigation.push('Search')
-              }} style={{
-                padding: 12,
-                paddingHorizontal: 36,
-                borderRadius: 6,
-                margin: 16,
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 200,
-                alignSelf: 'center',
-
-              }}>
-              <Text style={{
-                color: 'white', fontFamily: Config.fontName,
-                fontSize: 14, fontWeight: 'bold',
-              }} numberOfLines={1}>
+                this.props.navigation.navigate('Search')
+              }} style={styles.addTextContainer}>
+              <Text style={styles.addText} numberOfLines={1}>
                 Add
               </Text>
             </TouchableOpacity>
@@ -150,13 +130,17 @@ export default class StalkList extends React.Component<{
               }}
               value={this.state.previousCode}
               onSubmitEditing={() => {
-                this.props.navigation.push('Search', this.state.previousCode)
+                this.props.navigation.navigate('Search', {
+                  code: this.state.previousCode
+                })
               }}
             />
             <Button
               title='GO'
               onPress={() => {
-                this.props.navigation.push('Search', this.state.previousCode)
+                this.props.navigation.navigate('Search', {
+                  code: this.state.previousCode
+                })
               }}
             />
           </View>
@@ -233,8 +217,10 @@ export default class StalkList extends React.Component<{
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                MainState.removeFromMyList(this.state.selectedUser)
-                this.setState({ isModalVisible: false, selectedUser: null })
+                if (this.state.selectedUser) {
+                  MainState.removeFromMyList(this.state.selectedUser)
+                  this.setState({ isModalVisible: false, selectedUser: null })
+                }
               }}
               style={{ paddingHorizontal: 28, paddingVertical: 8 }}>
               <Text style={{ fontWeight: 'bold', fontFamily: Config.fontName, color: 'red', }}>Remove</Text>
@@ -260,13 +246,7 @@ export default class StalkList extends React.Component<{
       >
         <Image
           source={{ uri: profile_pic_url }}
-          style={{
-            backgroundColor: '#EEE',
-            width: 52,
-            height: 52,
-            borderRadius: 26,
-            marginRight: 8,
-          }}
+          style={styles.itemProfileImage}
         />
         <View>
           <Text numberOfLines={1} style={{ fontFamily: Config.fontName, fontWeight: 'bold' }}>
@@ -285,6 +265,7 @@ export default class StalkList extends React.Component<{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black',
   },
   input: {
     height: 50,
@@ -293,5 +274,26 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 4,
     color: 'white'
+  },
+  addTextContainer: {
+    padding: 12,
+    paddingHorizontal: 36,
+    borderRadius: 6,
+    margin: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 200,
+    alignSelf: 'center',
+  },
+  addText: {
+    color: 'white', fontFamily: Config.fontName,
+    fontSize: 14, fontWeight: 'bold',
+  },
+  itemProfileImage: {
+    backgroundColor: '#EEE',
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    marginRight: 8,
   },
 })

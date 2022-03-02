@@ -5,7 +5,7 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
+import PagerView, { PagerViewOnPageSelectedEvent } from 'react-native-pager-view'
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconIonIcons from 'react-native-vector-icons/Ionicons'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -20,8 +20,9 @@ import * as utils from './apputils'
 export default class StoriesScreen extends React.Component {
   constructor(props) {
     super(props)
-    const { navigation } = this.props;
-    this.usersRaw = navigation.getParam('users', null)
+    const { navigation, route } = this.props
+    const params = route.params
+    this.usersRaw = params.users
     this.users = []
     this.usersRaw.forEach((raw, index) => {
       if (index % Config.storiesBetweenAdGap === 1) {
@@ -34,7 +35,7 @@ export default class StoriesScreen extends React.Component {
       }
       this.users.push(raw)
     })
-    const initialIndexRaw = navigation.getParam('initialIndex', null)
+    const initialIndexRaw = params.initialIndex
     let howManyAds = 0
     if (Config.adsEnabled()) {
       if (initialIndexRaw > 0) {
@@ -121,15 +122,16 @@ export default class StoriesScreen extends React.Component {
           paddingTop: ifIphoneX(32, Platform.select({ android: 0, ios: 20 })),
         }}
       >
-        <ScrollableTabView
+        <PagerView
+          scrollEnabled
+          style={{ flex: 1 }}
           ref="storiesContainer"
-          prerenderingSiblingsNumber={1}
-          renderTabBar={false}
+          offscreenPageLimit={1}
           initialPage={storiesContainerIndex}
-          onChangeTab={({ i }) => {
-            fire.trackEvent("story_swipe")
-            this.storiesContainerIndex = i
-            MainState.activeStoryTab = i
+          onPageSelected={(e: PagerViewOnPageSelectedEvent) => {
+            // const i = e.;
+            // this.storiesContainerIndex = i
+            // MainState.activeStoryTab = i
           }}
         >
           {this.users.map((user, index) => {
@@ -145,7 +147,7 @@ export default class StoriesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           })}
-        </ScrollableTabView>
+        </PagerView>
         {this.renderClose()}
         {this.renderDownload()}
       </View>

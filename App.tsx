@@ -1,51 +1,36 @@
-import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, SafeAreaView, StatusBar, YellowBox } from 'react-native';
-import codePush from "react-native-code-push";
+import React from 'react'
+import { StatusBar } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import AppContainer from './src/AppContainer'
-import * as fire from './src/fire'
+import HomeScreen from './src/HomeScreen'
+import SearchScreen from './src/SearchScreen'
+import UserScreen from './src/UserScreen'
+import StoriesScreen from './src/StoriesScreen'
+import InstagramLoginScreen from './src/InstagramLoginScreen'
+import PhotoScreen from './src/PhotoScreen'
 
-YellowBox.ignoreWarnings([
-  `Require cycle: node_modules/react-native-gesture-handler`
-])
+const RootStack = createNativeStackNavigator()
 
-function getActiveRouteName(navigationState) {
-  if (!navigationState) {
-    return null;
-  }
-  const route = navigationState.routes[navigationState.index];
-  // dive into nested navigators
-  if (route.routes) {
-    return getActiveRouteName(route);
-  }
-  return route.routeName;
-}
-
-@codePush
-export default class App extends Component {
-  render() {
-    return <View
-      style={{
-        flex: 1,
+const App = () => {
+  return (
+    <NavigationContainer>
+      <StatusBar backgroundColor='black' barStyle='default' />
+      <RootStack.Navigator initialRouteName="Home" screenOptions={{
+        headerShown: false,
+        animation: 'none',
       }}>
-      <StatusBar
-        backgroundColor={'black'}
-        barStyle='default'
-      />
-      <AppContainer
-        onNavigationStateChange={(prevState, currentState) => {
-          const currentScreen = getActiveRouteName(currentState);
-          const prevScreen = getActiveRouteName(prevState);
-
-          if (prevScreen !== currentScreen) {
-            // the line below uses the Google Analytics tracker
-            // change the tracker here to use other Mobile analytics SDK.
-            // tracker.trackScreenView(currentScreen);
-            // console.warn(currentScreen)
-            fire.trackScreen(currentScreen)
-          }
-        }}
-      />
-    </View >
-  }
+        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen name="Search" component={SearchScreen} />
+        <RootStack.Screen name="User" component={UserScreen} />
+        <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+          <RootStack.Screen name="Stories" component={StoriesScreen} />
+          <RootStack.Screen name="InstagramLogin" component={InstagramLoginScreen} />
+          <RootStack.Screen name="Photo" component={PhotoScreen} />
+        </RootStack.Group>
+      </RootStack.Navigator>
+    </NavigationContainer>
+  )
 }
+
+export default App

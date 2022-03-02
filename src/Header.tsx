@@ -4,11 +4,11 @@ import { View, StyleSheet, Text, Platform, } from 'react-native';
 import * as Config from './Config'
 
 export default class Header extends React.Component<{
-  title: string,
-  leftIcon: React.ReactNode,
-  rightIcon: React.ReactNode,
-  centerView: React.ReactNode,
-  style: object,
+  title?: string,
+  leftIcon?: JSX.Element,
+  rightIcon?: JSX.Element,
+  centerView?: JSX.Element,
+  style?: object,
 }> {
   render() {
     const { title, leftIcon, rightIcon, centerView, style } = this.props;
