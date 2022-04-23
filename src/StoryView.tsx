@@ -330,9 +330,10 @@ export default class StoryView extends React.Component {
         position: 'absolute',
         left: 0,
         top: 0,
-        bottom: 0,
+        // bottom: 0,
         right: 0,
         flexDirection: 'row',
+        height: Dimensions.get('window').height,
       }}>
         <TouchableOpacity
           onPress={async () => {
