@@ -1,7 +1,7 @@
 import { PermissionsAndroid, Platform, Dimensions } from 'react-native'
 import CameraRoll from "@react-native-community/cameraroll"
 // import RNFetchBlob from 'rn-fetch-blob'
-// import faker from "faker"
+import { faker } from '@faker-js/faker'
 import * as Config from './Config'
 import { IImageCandidate } from './interfaces'
 
@@ -122,11 +122,11 @@ export const getAvatar = (avatar: string) => {
 }
 
 export const getUsername = (username: string) => {
-  return Config.ssMode ? 'faker.internet.userName()' : username
+  return Config.ssMode ? faker.internet.userName() : username
 }
 
 export const getFullname = (fullname: string) => {
-  return Config.ssMode ? ('faker.name.firstName()' + " " + 'faker.name.lastName()') : fullname
+  return Config.ssMode ? (faker.name.firstName() + " " + faker.name.lastName()) : fullname
 }
 
 export const getStoryImage = (image: string) => {
