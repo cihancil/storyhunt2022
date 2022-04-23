@@ -74,7 +74,7 @@ export default class StoriesScreen extends React.Component {
     fire.trackEvent("story_close")
 
     if (this && AppLovinMAX.isInterstitialReady(INTERSTITIAL_AD_UNIT_ID)) {
-      AppLovinMAX.showInterstitial(INTERSTITIAL_AD_UNIT_ID);
+      // AppLovinMAX.showInterstitial(INTERSTITIAL_AD_UNIT_ID);
     }
   }
 
@@ -128,9 +128,9 @@ export default class StoriesScreen extends React.Component {
           offscreenPageLimit={1}
           initialPage={storiesContainerIndex}
           onPageSelected={(e: PagerViewOnPageSelectedEvent) => {
-            // const i = e.;
-            // this.storiesContainerIndex = i
-            // MainState.activeStoryTab = i
+            const i = e.nativeEvent.position;
+            this.storiesContainerIndex = i
+            MainState.activeStoryTab = i
           }}
         >
           {this.users.map((user, index) => {
