@@ -81,14 +81,14 @@ export default class StoriesScreen extends React.Component {
   handleBack = () => {
     const { storiesContainerIndex } = this
     if (storiesContainerIndex > 0) {
-      this.refs.storiesContainer.goToPage(storiesContainerIndex - 1)
+      this.refs.storiesContainer.setPage(storiesContainerIndex - 1)
     }
   }
 
   handleForward = () => {
     const { storiesContainerIndex } = this
     if (storiesContainerIndex < (this.users.length - 1)) {
-      this.refs.storiesContainer.goToPage(storiesContainerIndex + 1)
+      this.refs.storiesContainer.setPage(storiesContainerIndex + 1)
     }
   }
 
