@@ -74,7 +74,7 @@ export default class StoriesScreen extends React.Component {
     fire.trackEvent("story_close")
 
     if (this && AppLovinMAX.isInterstitialReady(INTERSTITIAL_AD_UNIT_ID)) {
-      // AppLovinMAX.showInterstitial(INTERSTITIAL_AD_UNIT_ID);
+      AppLovinMAX.showInterstitial(INTERSTITIAL_AD_UNIT_ID);
     }
   }
 
